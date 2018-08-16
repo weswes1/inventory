@@ -1,0 +1,1 @@
+This is a project for learning git, github, and python. The project started as an inventory management program.
