@@ -1,6 +1,8 @@
 """
  Product Inventory Project - Create an application which manages an inventory of products.
  Create a product class which has a price, id, and quantity on hand. 
+ Create a cash Register that keeps trach of totals bills, ect
+ Create a sale option that allows for credit cards or cash
  Then create an inventory class which keeps track of various products and can sum up the inventory value.
 """
 
@@ -51,7 +53,7 @@ class inventory:
 
 
 class store:
-	def __init__(self,address="",rent=0,ID="",invent=set()):
+	def __init__(self,address="",rent=0,ID="",invent=set(),value=0):
 		self.address=""
 		self.ID=0
 		self.invent=invent
@@ -64,47 +66,9 @@ class store:
 		for inventory in self.invent:
 				inventory.getproducts()
 
+	def sale(self,thing,qnty):
+		pass
+
 	def __str__(self):
 		return "Store ID: {} Store Address: {} Store Rent: {} Inventory: ".format(self.ID,self.address,self.rent)
-
-
-
-# Create two fruit products, and initialize Them
-apples = product()
-oranges = product()
-
-apples.ide="apples"
-apples.quantity=1
-apples.price=2
-apples.valprice=1
-apples.selprice=2
-
-oranges.ide="oranges"
-oranges.quantity=1
-oranges.price=2
-oranges.valprice=1
-oranges.selprice=2
-
-# Create a fruit inventory, and add apples and oranges to it.
-print("Below is an inventory of apples and oranges: ")
-fruitinvent = inventory()
-fruitinvent.addproduct(apples)
-fruitinvent.addproduct(oranges)
-print("")
-fruitinvent.getproducts()
-print("")
-print("The actual value of the inventory is: {} $ \n".format(fruitinvent.getValue()))
-print("The selling value of the inventory is: {} $ \n".format(fruitinvent.getsellValue()))
-############
-print("Below is a fruit store with the inventory above, an adress, rent, and ID number: \n ")
-fruitstore = store()
-fruitstore.addinventory(fruitinvent)
-fruitstore.ID=9823
-fruitstore.address="5659 Sontas Ln., Littleville, California, 94185"
-fruitstore.rent=1200
-
-print(fruitstore)
-print("")
-fruitstore.getinventory()
-
 
