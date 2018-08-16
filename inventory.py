@@ -27,9 +27,10 @@ class product:
 
 
 class inventory:
-	def __init__(self,products=set(),val=0):
+	def __init__(self,products=set(),val=0,sellval=0):
 		self.val=val
 		self.products=products
+		self.sellval=sellval
 
 	def addproduct(self,newproduct):
 		self.products.add(newproduct)
@@ -39,13 +40,36 @@ class inventory:
 			self.val+=product.valprice
 		return self.val
 
+	def getsellValue(self):
+		for product in self.products:
+			self.sellval+=product.selprice
+		return self.sellval
+
 	def getproducts(self):
 		for product in self.products:
 			print(product)
 
 
+class store:
+	def __init__(self,address="",rent=0,ID="",invent=set()):
+		self.address=""
+		self.ID=0
+		self.invent=invent
+		self.rent=rent
+
+	def addinventory(self,newinventory):
+		self.invent.add(newinventory)
+
+	def getinventory(self):
+		for inventory in self.invent:
+				inventory.getproducts()
+
+	def __str__(self):
+		return "Store ID: {} Store Address: {} Store Rent: {} Inventory: ".format(self.ID,self.address,self.rent)
 
 
+
+# Create two fruit products, and initialize Them
 apples = product()
 oranges = product()
 
@@ -61,16 +85,26 @@ oranges.price=2
 oranges.valprice=1
 oranges.selprice=2
 
-# print(apples)
-# print(oranges)
-
+# Create a fruit inventory, and add apples and oranges to it.
+print("Below is an inventory of apples and oranges: ")
 fruitinvent = inventory()
-
 fruitinvent.addproduct(apples)
 fruitinvent.addproduct(oranges)
+print("")
+fruitinvent.getproducts()
+print("")
+print("The actual value of the inventory is: {} $ \n".format(fruitinvent.getValue()))
+print("The selling value of the inventory is: {} $ \n".format(fruitinvent.getsellValue()))
+############
+print("Below is a fruit store with the inventory above, an adress, rent, and ID number: \n ")
+fruitstore = store()
+fruitstore.addinventory(fruitinvent)
+fruitstore.ID=9823
+fruitstore.address="5659 Sontas Ln., Littleville, California, 94185"
+fruitstore.rent=1200
 
-print(fruitinvent.getproducts())
-
-print(fruitinvent.getValue())
+print(fruitstore)
+print("")
+fruitstore.getinventory()
 
 
