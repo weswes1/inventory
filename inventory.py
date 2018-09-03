@@ -1,3 +1,4 @@
+
 """
  Product Inventory Project - Create an application which manages an inventory of products.
  Create a product class which has a price, id, and quantity on hand. 
@@ -5,6 +6,8 @@
  Create a sale option that allows for credit cards or cash
  Then create an inventory class which keeps track of various products and can sum up the inventory value.
 """
+
+from register import *
 
 class product:
 
@@ -27,15 +30,17 @@ class product:
 		return "ID: {} quantity: {} selling price: {} value price: {}".format(self.ide,self.quantity,self.selprice,self.valprice)
 
 
-
 class inventory:
-	def __init__(self,products=set(),val=0,sellval=0):
+	def __init__(self,val=0,sellval=0,products=set()):
 		self.val=val
 		self.products=products
 		self.sellval=sellval
 
 	def addproduct(self,newproduct):
 		self.products.add(newproduct)
+
+	def deleteproduct(self,todelete):
+		self.products.remove(todelete)
 
 	def getValue(self):
 		for product in self.products:
@@ -53,22 +58,24 @@ class inventory:
 
 
 class store:
-	def __init__(self,address="",rent=0,ID="",invent=set(),value=0):
-		self.address=""
-		self.ID=0
-		self.invent=invent
-		self.rent=rent
+	def __init__(self,address="", ID="",inventory=set(),name=""):
+		self.address=address
+		self.ID=ID
+		self.name=name
+		self.inventory=inventory
 
 	def addinventory(self,newinventory):
-		self.invent.add(newinventory)
+		self.inventory.add(newinventory)
 
 	def getinventory(self):
-		for inventory in self.invent:
-				inventory.getproducts()
-
-	def sale(self,thing,qnty):
-		pass
-
+		for inventory in self.inventory:
+			print(self.inventory)
+			inventory.getproducts()
 	def __str__(self):
-		return "Store ID: {} Store Address: {} Store Rent: {} Inventory: ".format(self.ID,self.address,self.rent)
+		return "Store ID: {} Store Address: {} Store Inventory: {}  ".format(self.ID,self.address,self.inventory)
+
+
+
+
+
 
