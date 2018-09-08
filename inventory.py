@@ -31,13 +31,11 @@ class product:
 
 
 class inventory:
-	def __init__(self,val=0,sellval=0,products=set()):
+	def __init__(self,val=0,sellval=0,name="",products=object):
+		self.products=set()
 		self.val=val
-		self.products=products
 		self.sellval=sellval
-
-	def addproduct(self,newproduct):
-		self.products.add(newproduct)
+		self.name=name
 
 	def deleteproduct(self,todelete):
 		self.products.remove(todelete)
@@ -56,23 +54,27 @@ class inventory:
 		for product in self.products:
 			print(product)
 
+	def __str__(self):
+		## return "Inventory name: {} products: {}".format(self.name,getproducts(self))
+		print(self.name +"\n")
+		return str(self.getproducts())
+
 
 class store:
-	def __init__(self,address="", ID="",inventory=set(),name=""):
+	def __init__(self,address="", ID="",name="",inventories=object):
+		self.inventories=set()
 		self.address=address
 		self.ID=ID
 		self.name=name
-		self.inventory=inventory
-
-	def addinventory(self,newinventory):
-		self.inventory.add(newinventory)
 
 	def getinventory(self):
-		for inventory in self.inventory:
-			print(self.inventory)
-			inventory.getproducts()
+		for inventory in self.inventories:
+			print inventory.name
+
 	def __str__(self):
-		return "Store ID: {} Store Address: {} Store Inventory: {}  ".format(self.ID,self.address,self.inventory)
+		print("Store ID: {} Store Address: {} Store name: {} \n".format(self.ID,self.address,self.name))
+		print("Inventories: \n")
+		return str(self.getinventory())
 
 
 

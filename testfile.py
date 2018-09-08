@@ -9,58 +9,63 @@ from register import *
 apples = product(4,2,5,"apples")
 oranges = product(3,5,2,"oranges")
 carrots = product(7,3,2,"carrots")
-squash =product(9,4,3,"squash")
+squash = product(9,4,3,"squash")
 
 
-print("Testing if the print statement works on a product...")
-print(squash)
-print("Testing if changing book value, changing sell value, and changing quantity work on a product...")
+# print("Testing if the print statement works on a product...")
+# print(squash)
+# print("Testing if changing book value, changing sell value, and changing quantity work on a product...")
 squash.change_price(6)
 squash.change_quantity(2)
 squash.changevalprice(10)
-print(squash)
-
+# print(squash)
 # Create a fruit and vegetable inventory, and add the products.
 
 fruitinvent = inventory()
-vegetableinvent=inventory()
-fruitinvent.addproduct(apples)
-fruitinvent.addproduct(oranges)
-vegetableinvent.addproduct(carrots)
-vegetableinvent.addproduct(squash)
+fruitinvent.products.add(apples)
+fruitinvent.products.add(oranges)
+fruitinvent.name="Fruit Inventory"
 
-# Check the selling value and book value of the vegetable inventory
+print("Checking if the print statement works on the inventories: \n")
+
+print(fruitinvent)								
+## 					TODO: Where is the none value coming from in my dictionary?
+##
+##									
 print("")
-print("Selling value of the vegetable inventory: {} actual value of the vegetable inventory: {}".format(vegetableinvent.getValue(),vegetableinvent.getsellValue()))
-print("")
-# Remove carrots from the vegetable inventory, and check the value again.
-print("")
-print("We removed carrots from the vegetable inventory. Let's check the new book and selling value: ")
-print("")
-vegetableinvent.deleteproduct(carrots)
-print("")
-print("Selling value of the vegetable inventory: {} Actual value of the vegetable inventory: {}".format(vegetableinvent.getValue(),vegetableinvent.getsellValue()))
+vegetableinvent = inventory()
+vegetableinvent.products.add(squash)
+vegetableinvent.products.add(carrots)
+vegetableinvent.name="Vegetable Inventory"
+
+print(vegetableinvent)
 
 
+
+
+
+print("")
 
 fruitstore = store()
-fruitstore.addinventory(fruitinvent)
-fruitstore.ID=9823
-fruitstore.address="5659 Sontas Ln., Littleville, California, 94185"
-
+fruitstore.ID = 9823
+fruitstore.address = "5659 Sontas Ln., Littleville, California, 94185"
+fruitstore.name = "Great Melons Fruit Store"
+fruitstore.inventories.add(fruitinvent)
 print(fruitstore)
-print("")
-print("Store Inventory: \n")
-print("")
-fruitstore.getinventory()
-print("")
-print("Value of the inventory of the store: \n")       # I have to use list notation to convert the set to a list
-print((list(fruitstore.inventory)[0]).getValue())
+## 					TODO: Where is the none value coming from in my dictionary?
+print(" \n \n \n")
 
+veggiestore = store()
+veggiestore.ID = 6234
+veggiestore.address = "34543 Gashwell Street, New York, New York, 04185"
+veggiestore.name = "Great Vegetables Store"
+veggiestore.inventories.add(vegetableinvent)
+print(veggiestore)
 
+"""
 
 # CASE 1: Not enough cash given for the item.
-"""
+
 aprice = 1000
 testregister=register({"hundreds":2,"twenties":6,"tens":3,"fives":3,"ones":5,"quarters":1,"dimes":2,"nickels":1,"pennies":4})
 print("Before the transaction, the register has a total of {} $ and the bills in the register are: {}".format(testregister.getTotal(),testregister.state))
