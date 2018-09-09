@@ -31,7 +31,7 @@ class product:
 
 
 class inventory:
-	def __init__(self,val=0,sellval=0,name="",products=object):
+	def __init__(self,val=0,sellval=0,name=""):
 		self.products=set()
 		self.val=val
 		self.sellval=sellval
@@ -55,28 +55,24 @@ class inventory:
 			print(product)
 
 	def __str__(self):
-		## return "Inventory name: {} products: {}".format(self.name,getproducts(self))
-		print(self.name +"\n")
-		return str(self.getproducts())
-
+		return self.name+str(self.getproducts())
 
 class store:
-	def __init__(self,address="", ID="",name="",inventories=object):
+	def __init__(self,address="", ID="",name=""):
 		self.inventories=set()
+		self.register=register()
 		self.address=address
 		self.ID=ID
 		self.name=name
 
 	def getinventory(self):
 		for inventory in self.inventories:
-			print inventory.name
+			print(inventory)
 
 	def __str__(self):
 		print("Store ID: {} Store Address: {} Store name: {} \n".format(self.ID,self.address,self.name))
 		print("Inventories: \n")
 		return str(self.getinventory())
-
-
 
 
 
