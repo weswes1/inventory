@@ -7,6 +7,7 @@ from register import *
 
 # Create fruit & vegetable products
 apples = product(4,2,5,"apples")
+bannanas = product(2,2,2,"bannanas")
 oranges = product(3,5,2,"oranges")
 carrots = product(7,3,2,"carrots")
 squash = product(9,4,3,"squash")
@@ -23,13 +24,23 @@ squash.changevalprice(10)
 # Create a fruit and vegetable inventory, and add the products.
 
 fruitinvent = inventory()
-fruitinvent.products.add(apples)
-fruitinvent.products.add(oranges)
+fruitinvent.products.append(apples)
+fruitinvent.products.append(oranges)
+fruitinvent.products.append(bannanas)
 fruitinvent.name="Fruit Inventory"
+
+
+vegetableinvent = inventory()
+vegetableinvent.products.append(squash)
+vegetableinvent.products.append(carrots)
+vegetableinvent.name="Vegetable Inventory"
+
+
+
 
 # print("Checking if the print statement works on the inventories: \n")
 
-print(fruitinvent)								
+# print(fruitinvent)								
 # TODO: Where is the none value coming from ?
 
 
@@ -37,69 +48,51 @@ print(fruitinvent)
 
 # Create a fruit and vegetable store, and test functionality
 
-fruitstore = store()
-fruitstore.ID = 9823
-fruitstore.address = "5659 Sontas Ln., Littleville, California, 94185"
-fruitstore.name = "Great Melons Fruit Store"
-fruitstore.inventories.add(fruitinvent)
+producestore = store()
+producestore.ID = 9823
+producestore.address = "5659 Sontas Ln., Littleville, California, 94185"
+producestore.name = "Fruit Veg Store"
+producestore.inventories.append(fruitinvent)
+producestore.inventories.append(vegetableinvent)
 
 
-fruitregister=register({"hundreds":2,"twenties":6,"tens":3,"fives":3,"ones":5,"quarters":1,"dimes":2,"nickels":5,"pennies":0})
-fruitstore.register = fruitregister
-print(fruitstore.register)
+
+storeregister = register({"hundreds":2,"twenties":6,"tens":3,"fives":3,"ones":5,"quarters":1,"dimes":2,"nickels":5,"pennies":12})
+
+producestore.register=storeregister
+totalgiven = {"hundreds":0,"twenties":1,"tens":0,"fives":0,"ones":0,"quarters":0,"dimes":0,"nickels":0,"pennies":0}
+print("There is {} {} in stock. The bannanas are selling for {} $ each \n".format(fruitinvent.products[2].quantity,fruitinvent.products[2].ide,fruitinvent.products[2].selprice))
+print("Attempting to make a sale of 5 bannanas... given {} $ \n".format(getTotal(totalgiven)))
+producestore.cashSale("bannanas",5,totalgiven)
+print("")
+totalgiven = {"hundreds":0,"twenties":0,"tens":0,"fives":0,"ones":0,"quarters":0,"dimes":0,"nickels":0,"pennies":60}
+print("Attempting to make a sale of 1 (available) bannana with {} $ \n".format(getTotal(totalgiven)))
+producestore.cashSale("bannanas",1,totalgiven)
+print("")
+print("Attempting to make a sale of an item not in stock... \n")
+producestore.cashSale("oranges",1,totalgiven)
+print("")
+print("Store register state before the succesful sale {}".format(producestore.register.state))
+print("Stock of bannanas before the succesful sale: {}".format(fruitinvent.products[2].quantity))
+print("")
+totalgiven = {"hundreds":0,"twenties":1,"tens":1,"fives":1,"ones":0,"quarters":0,"dimes":0,"nickels":0,"pennies":60}
+print("Attempting to make a sale of 1 bannana with enough cash \n")
+producestore.cashSale("bannanas",1,totalgiven)
+print("")
+print("Store register state after the succesful sale {}".format(producestore.register.state))
+print("Stock of bannanas after the succesful sale: {}".format(fruitinvent.products[2].quantity))
+print("")
+
+
+
+
+
+
 
 
 
 
 """
-## 					TODO: Where is the none value coming from in my dictionary?
-
-
-print(" \n \n \n")
-
-veggiestore = store()
-veggiestore.ID = 6234
-veggiestore.address = "34543 Gashwell Street, New York, New York, 04185"
-veggiestore.name = "Great Vegetables Store"
-veggiestore.inventories.add(vegetableinvent)
-print(veggiestore)
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

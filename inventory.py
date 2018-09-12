@@ -32,7 +32,7 @@ class product:
 
 class inventory:
 	def __init__(self,val=0,sellval=0,name=""):
-		self.products=set()
+		self.products=list()
 		self.val=val
 		self.sellval=sellval
 		self.name=name
@@ -59,7 +59,7 @@ class inventory:
 
 class store:
 	def __init__(self,address="", ID="",name=""):
-		self.inventories=set()
+		self.inventories=list()
 		self.register=register()
 		self.address=address
 		self.ID=ID
@@ -67,13 +67,35 @@ class store:
 
 	def getinventory(self):
 		for inventory in self.inventories:
-			print(inventory)
+			inventory.getproducts()
+
+	def getproduce(self):
+		productlist=[]
+		for i in range(0,self.inventories):
+			for j in self.inventories[i]:
+				pass
+
+		return productlist
+
 
 	def __str__(self):
 		print("Store ID: {} Store Address: {} Store name: {} \n".format(self.ID,self.address,self.name))
 		print("Inventories: \n")
 		return str(self.getinventory())
 
+	def cashSale(self,item,quantity,cashVals):
+		isValid = False
+		for i in range(0,len(self.inventories)):
+			for j in range(0,len(self.inventories[i].products)):
+				if (self.inventories[i].products[j].ide==item and self.inventories[i].products[j].quantity>= quantity and getTotal(cashVals)>=quantity*self.inventories[i].products[j].selprice):
+					isValid = True
+					print("The check has passed.")
+																				# Decrease the stock of the item quantity by quantity
+					self.inventories[i].products[j].quantity-=quantity
+					self.register.makeChange(self.inventories[i].products[j].selprice*quantity,cashVals)
+					# print("Found a match, and we have enough stock")
 
+		if (isValid==False):
+			print("No match found, not enough stock of the item, not enough cash, or not perfect change")
 
 

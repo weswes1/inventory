@@ -22,7 +22,8 @@ class register:
 		# print("The change due is {}".format(change_due))
 
 
-		if (totalgiven<price):										# The total amount is not enough to cover the price. Remove the bills from the register.
+		if (totalgiven<price):
+			return False									# The total amount is not enough to cover the price. Remove the bills from the register.
 			print("Not enough. Transaction cancelled. The price is {} ".format(price))	
 			for key in given:
 				self.state[key]-=given[key]		
@@ -82,6 +83,7 @@ class register:
 			change_due=round(change_due,2)
 
 		if (change_due==0):										# We had perfect change for the sale.
+			return True
 		
 			print("Change Distributed, your change is: {} hundred {} twenty {} ten {} five {} one {} quarter {} dime {} nickel {} penny".format(changearr[0],changearr[1],changearr[2],changearr[3],changearr[4],changearr[5],changearr[6],changearr[7],changearr[8]))
 
@@ -89,10 +91,12 @@ class register:
 				for key in self.state:
 					self.state[key]=self.state[key]-changearr[i]
 
+
 			# Subtract the change array values from the register state 
 			changearr=[0,0,0,0,0,0,0,0,0]						# Reset the change array
 
-		elif (change_due>0):									
+		elif (change_due>0):
+			return False									
 			for key in given:
 				self.state[key]-=given[key]							# We did not have perfect change for the sale. Return the bills, reset change array.
 			print("Not Exact Change. Transaction Cancelled. ")
